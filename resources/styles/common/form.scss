@@ -1,0 +1,113 @@
+.gfield {
+  @apply mb-4;
+  input, select, textarea {
+    @apply w-full focus:outline-none border border-[#707070];
+  }
+  &.gfield_error {
+    input, select, textarea {
+      @apply border-2 border-red-500;
+    }
+  }
+  &.gform_validation_container {
+    @apply hidden;
+  }
+  .gfield_required {
+    @apply hidden;
+  }
+  textarea {
+    @apply h-40;
+  }
+  label {
+    @apply block mb-1;
+  }
+}
+
+.gform_submission_error {
+  @apply text-red-500 text-center mb-2 font-bold;
+}
+  
+.hidden_label label{
+  @apply hidden;
+}
+
+.gfield_visibility_hidden {
+  @apply hidden #{!important};
+}
+.validation_message {
+  @apply hidden;
+}
+.validation_error {
+  @apply text-red-500 px-0 mb-4 md:mb-4 md:w-4/5 md:mx-auto md:text-center;
+}
+
+.gform_footer {
+  .gform_button {
+    @apply text-white bg-c-red uppercase font-bold py-3.5 w-full hover:cursor-pointer;
+  }
+}
+
+.home-form {
+  .gfield {
+    @apply sm:mb-2 lg:mb-3;
+  }
+  .gform_body {
+    @apply sm:mb-3;
+  }
+  .gform_fields {
+    @apply sm:grid sm:grid-cols-6 sm:gap-x-4 lg:gap-x-6;
+    .gfield.medium {
+      @apply sm:col-span-3;
+    }
+    .gfield.small {
+      @apply sm:col-span-2;
+    }
+  }
+}
+
+.service-form {
+  .gfield {
+    @apply sm:flex sm:items-center mb-6 sm:mb-12;
+    label {
+      @apply sm:mr-4 lg:mr-6;
+    }
+    .ginput_container {
+      @apply flex-grow;
+    }
+  }
+}
+
+.nowarranty-form {
+  .gform_drop_area {
+    @apply bg-[#F8F8F8] border-dashed border-2 border-[#9D9D9D] flex justify-center py-8 relative;
+    button {
+      @apply text-c-red underline font-semibold ml-1;
+    }
+    &:before {
+      @apply h-10 w-10 absolute left-0 md:ml-2;
+      content: ' ';
+      background-image: url('../images/attach.svg');
+      top: calc(50% - 1.25rem);
+
+    }
+  }
+  .gform_fileupload_rules {
+    @apply hidden;  
+  }
+  #field_5_1 {
+    .gfield_label {
+      @apply hidden; 
+    }  
+  }
+  .gform_delete_file {
+    @apply text-c-red;
+    .screen-reader-text {
+      @apply hidden;  
+    }  
+  }
+  #gform_preview_5_1 {
+    @apply pt-1;
+    .ginput_preview {
+      @apply flex items-center;  
+    }
+  }
+}

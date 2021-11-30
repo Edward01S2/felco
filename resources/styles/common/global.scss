@@ -1,0 +1,46 @@
+body {
+  @apply font-sans;
+}
+
+a, button {
+  @apply transition duration-150;
+}
+
+.prose, .prose-lg {
+  a {
+    @apply text-c-red #{!important};
+  }
+}
+
+.service-type {
+  @apply text-white border-2 border-white uppercase py-2 font-bold hover:bg-c-red hover:border-c-red focus:outline-none flex items-center justify-center lg:text-xl;
+  &.active {
+    @apply bg-c-red border-c-red;
+  }
+  .service-svg {
+    @apply h-6 w-6 mr-2;
+  }
+}
+
+.annual-service {
+  .service-type {
+    @apply border-black text-black hover:border-c-red hover:text-white;
+    &.active {
+      @apply border-c-red text-white;
+    }
+  }
+  .service-content-container {
+    .prose {
+      @apply text-black;
+    }
+    .prose ul > li:before {
+      @apply bg-c-red;
+    }
+    .service-item {
+      @apply hidden;
+      &.active {
+        @apply block;
+      }
+    }
+  }
+}

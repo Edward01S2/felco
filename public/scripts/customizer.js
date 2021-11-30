@@ -1,0 +1,2 @@
+(self.webpackChunksage=self.webpackChunksage||[]).push([[438],{477:function(n,e,t){var u=t(567);wp.customize("blogname",(function(n){n.bind((function(n){return u(".brand").text(n)}))}))},567:function(n){"use strict";n.exports=window.jQuery}},function(n){var e;e=477,n(n.s=e)}]);
+//# sourceMappingURL=customizer.js.map

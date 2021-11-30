@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunksage=self.webpackChunksage||[]).push([[804],{709:function(e,n,t){window.wp.editPost;var o=window.wp.domReady,i=t.n(o),u=window.wp.blocks;i()((function(){(0,u.unregisterBlockStyle)("core/button","outline"),(0,u.registerBlockStyle)("core/button",{name:"outline",label:"Outline"})}))}},function(e){var n;n=709,e(e.s=n)}]);
+//# sourceMappingURL=editor.js.map
