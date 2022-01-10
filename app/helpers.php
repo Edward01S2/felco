@@ -23,6 +23,16 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
       $_POST['input_15'] = 'Yes';
     }
 
+    $part_name = getPart($sn_value);
+    $_POST['input_15'] = $part_name;
+
+    if($part == 'Handpiece') {
+      $weight = 40;
+    }
+    elseif($part == 'Backpack') {
+      $weight = 56;
+    }
+
     //If within last 3 years then generate label and not a battery
     if($sn_year >= $curr_year - 3 && $part !== 'Battery') {
         $_POST['input_15'] = 'Yes';
@@ -70,7 +80,7 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
               "packages": [
                 {
                   "weight": {
-                    "value": 20,
+                    "value": '. $weight .',
                     "unit": "ounce"
                   }
                 }
@@ -79,7 +89,7 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
           }',
             CURLOPT_HTTPHEADER => array(
               'Host: api.shipengine.com',
-              'API-Key: TEST_R9DUc7DLQr+hVpAHtgXkcPlxA0+tWYLHqvgMyxcnwkQ',
+              'API-Key: TEST_OmLETxBpn1VJtunKSLrfcPc7kGwxeKKvaJnMgK+MJdE',
               'Content-Type: application/json'
             ),
           ));
@@ -90,7 +100,7 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
           $decode = json_decode($response, true);
           $_POST['input_18'] = $response;
           $_POST['input_16'] = $decode['label_download']['pdf'];
-          echo $response;
+          //echo $response;
     }
     
 } );
@@ -105,6 +115,68 @@ add_action( 'gform_pre_submission_5', function ( $form ) {
 
 });
 
+add_action( 'gform_pre_submission_3', function ( $form ) {
+  $sn = rgpost( 'input_2' );
+  $part = getPart($sn);
+
+  $_POST['input_13'] = $part;
+});
+
+add_action( 'gform_pre_submission_2', function ( $form ) {
+  //Get serial number and part name
+  $sn = rgpost( 'input_1' );
+  $part = getPart($sn);
+
+  $_POST['input_14'] = $part;
+
+  //Get service level
+  $level = rgpost('input_2');
+
+  $check = ['F802', 'F801', 'F812', 'F801G', 'F801M', 'F802G', 'F811'];
+  $check2 = ['F822', 'F820'];
+
+  //$_POST['input_15'] = $level;
+
+  if($level == 'Basic') {
+
+    if(in_array($part, $check)) {
+      $price = '60.00';
+      $_POST['input_15'] = $price;
+    }
+
+    if(in_array($part, $check2)) {
+      $price = '70.00';
+      $_POST['input_15'] = $price;
+    }
+  }
+  elseif($level == 'Regular') {
+
+    if(in_array($part, $check)) {
+      $price = '100.00';
+      $_POST['input_15'] = $price;
+    }
+
+    if(in_array($part, $check2)) {
+      $price = '130.00';
+      $_POST['input_15'] = $price;
+    }
+
+  }
+  elseif($level == 'Premium') {
+
+    if(in_array($part, $check)) {
+      $price = '150.00';
+      $_POST['input_15'] = $price;
+    }
+
+    if(in_array($part, $check2)) {
+      $price = '200.00';
+      $_POST['input_15'] = $price;
+    }
+
+  }
+});
+
 function getPart($serial) {
   $sn_part = strtolower(substr($serial, 2, 2));
   //$part = '';
@@ -114,5 +186,43 @@ function getPart($serial) {
       return 'F820';
     case 'ba':  
       return 'F801';
+    case 'ca':
+      return 'F801G';
+    case 'da':
+      return 'None';
+    case 'fa':
+      return 'F820';
+    case 'ga':
+      return 'F811';
+    case 'ma':
+      return 'F801M';
+    case 'ah':
+      return 'F820';
+    case 'bh':
+      return 'F801';
+    case 'gh':
+      return 'F811';
+    case 'oh':
+      return 'F802';
+    case 'ph':
+      return 'F802G';
+    case 'qh':
+      return 'F822';
+    case 'rh':
+      return 'F812';
+    case 'ae':
+      return 'F880';
+    case 'oe':
+      return 'F882';
+    case 'ab':
+      return '880/192';
+    case 'bb':
+      return '880/193';
+    case 'cb':
+      return '880/194';
+    case 'db':
+      return '880/195';
+    default:
+      return 'NA';
   }
 }

@@ -40,11 +40,11 @@ class Request extends Field
             ->addText('phone_number')
                 ->setWidth('50')
             ->addText('request_type')
-                ->setWidth('50')
-            ->addText('service_type', [
-                'instructions' => 'If request = service, what level?',
-            ])
-                ->setWidth('50')
+                ->setWidth('33')
+            ->addText('service_type')
+                ->setWidth('33')
+            ->addText('price')
+                ->setWidth('33')
             ->addText('part')
                 ->setWidth('50')
             ->addText('part_name')
