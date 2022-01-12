@@ -19,7 +19,7 @@
         </div>
 
         <div class="sm:w-1/2">
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhv4kCi2_Cl7Xqgcxs3tIWd96vOHDvFGI"></script>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyGbaOm6xcPYYf6B6LZiljhkPcen9akwU"></script>
           <div class="acf-map aspect-w-8 aspect-h-8" data-zoom="16">
             <div class="marker" data-lat="{!! $loc[0]['loc']['lat'] !!}" data-lng="{!! $loc[0]['loc']['lng'] !!}"></div>
         </div>
