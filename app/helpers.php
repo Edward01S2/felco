@@ -24,7 +24,7 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
     }
 
     $part_name = getPart($sn_value);
-    $_POST['input_15'] = $part_name;
+    $_POST['input_19'] = $part_name;
 
     if($part == 'Handpiece') {
       $weight = 40;
