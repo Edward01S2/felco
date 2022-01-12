@@ -30,6 +30,9 @@ a, button {
     }
   }
   .service-content-container {
+    p {
+      @apply text-center;
+    }
     .prose {
       @apply text-black;
     }

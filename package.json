@@ -8,9 +8,9 @@
     "node": ">=12.14.0"
   },
   "scripts": {
-    "build": "export SET NODE_OPTIONS=--openssl-legacy-provider && mix",
-    "build:production": "export SET NODE_OPTIONS=--openssl-legacy-provider && mix --production",
-    "start": "export SET NODE_OPTIONS=--openssl-legacy-provider && mix watch",
+    "build": "mix",
+    "build:production": "mix --production",
+    "start": "mix watch",
     "hot": "mix watch --hot",
     "clear": "wp acorn optimize:clear",
     "test": "npm run lint",

@@ -15,7 +15,7 @@
 
       <div class="service-content-container flex justify-center py-6">
         @foreach($service as $item)
-          <div class="prose max-w-none service-item {{ $loop->first ? 'active' : '' }}" data-type="{!! $item['name'] !!}">
+          <div class="prose max-w-lg service-item {{ $loop->first ? 'active' : '' }}" data-type="{!! $item['name'] !!}">
               {!! $item['content'] !!}
           </div>
         @endforeach
