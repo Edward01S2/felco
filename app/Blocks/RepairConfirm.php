@@ -201,7 +201,9 @@ class RepairConfirm extends Block
 
             $post_data[] = [
                 'title' => get_the_title(),
-                'loc' => get_field('map', $id)
+                'loc' => get_field('map', $id),
+                'phone' => get_field('phone', $id),
+                'email' => get_field('email', $id),
             ];
 
         endwhile;

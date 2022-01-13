@@ -24,6 +24,8 @@ class Locations extends Field
             // ->addText('city')
             // ->addText('state')
             // ->addText('postal')
+            ->addText('phone')
+            ->addText('email')
             ->addGoogleMap('map');
 
 
