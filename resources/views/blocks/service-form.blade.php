@@ -4,7 +4,7 @@
     <div class="py-6 sm:py-10">
       <h2 class="text-center font-bold text mb-4 sm:text-xl md:mb-6">{!! $title !!}</h2>
 
-      <div class="grid grid-cols-1 gap-2 service-type-container sm:grid-cols-3 md:gap-3 max-w-sm mx-auto sm:max-w-none lg:gap-4">
+      <div class="grid grid-cols-1 gap-2 service-type-container sm:grid-cols-2 md:gap-3 max-w-sm mx-auto sm:max-w-none lg:gap-4">
         @foreach($service as $item)
           <button class="service-type {{ $loop->first ? 'active' : '' }}" data-type="{!! $item['name'] !!}">
             @svg($item['icon'], 'h-8 w-8 mr-2 lg:h-10 lg:w-10')
