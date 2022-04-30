@@ -8,7 +8,7 @@ namespace App;
 
 add_action( 'gform_pre_submission_4', function ( $form ) {
 
- 
+    //WARRANTY FORM
     // Get the date field value.
     $sn_value      = rgpost( 'input_2' );
     $sn_year = substr($sn_value, 0, 2);
@@ -33,6 +33,11 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
       $weight = 56;
     }
 
+    $state = rgpost('input_9');
+    $location = getEmailLocation($state);
+  
+    $_POST['input_23'] = $location;
+
     //If within last 3 years then generate label and not a battery
     if($sn_year >= $curr_year - 3 && $part !== 'Battery') {
         $_POST['input_15'] = 'Yes';
@@ -43,6 +48,38 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
         if(empty($bus_name)) {
             $bus_name = 'N/A';
         }
+
+        //GET LOCATION INFO
+        $state = rgpost('input_9');
+        $args = array(
+          'post_type' => 'location',
+          'post_status' => 'publish',
+          'posts_per_page' => '1',
+          'meta_query' => array(
+              array(
+                  'key' => 'service_states',
+                  'value' => '"'.$state.'"',
+                  'compare' => 'LIKE'
+              )
+          )
+        );
+
+        $posts = new \WP_Query($args);
+
+        //$id = $posts->posts[0]->ID;
+        
+        $location = [];
+        while($posts->have_posts()): $posts->the_post();
+        
+            $id = get_the_ID();
+
+            $location[] = [
+                'title' => get_the_title(),
+                'loc' => get_field('map', $id),
+            ];
+
+        endwhile;
+        wp_reset_query();
 
         //Create curl call and generate link for label.
         $curl = curl_init();
@@ -60,11 +97,11 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
             "shipment": {
               "service_code": "ups_ground",
               "ship_to": {
-                "name": "Ambergs Inc",
-                "address_line1": "3164 Whitney Rd.",
-                "city_locality": "Stanley",
-                "state_province": "NY",
-                "postal_code": "14561",
+                "name": "' . $location[0]['title'] .'",
+                "address_line1": "'. $location[0]['loc']['name'] .'",
+                "city_locality": "'. $location[0]['loc']['city'] .'",
+                "state_province": "'. $location[0]['loc']['state_short'] .'",
+                "postal_code": "'. $location[0]['loc']['post_code'] .'",
                 "country_code": "US",
               },
               "ship_from": {
@@ -116,18 +153,30 @@ add_action( 'gform_pre_submission_5', function ( $form ) {
 });
 
 add_action( 'gform_pre_submission_3', function ( $form ) {
+  // REPAIR FORM
   $sn = rgpost( 'input_2' );
   $part = getPart($sn);
 
   $_POST['input_13'] = $part;
+
+  $state = rgpost('input_9');
+  $location = getEmailLocation($state);
+
+  $_POST['input_17'] = $location;
 });
 
 add_action( 'gform_pre_submission_2', function ( $form ) {
+  //SERVICE FORM
   //Get serial number and part name
   $sn = rgpost( 'input_1' );
   $part = getPart($sn);
 
   $_POST['input_14'] = $part;
+
+  $state = rgpost('input_8');
+  $location = getEmailLocation($state);
+
+  $_POST['input_17'] = $location;
 
   //Get service level
   $level = rgpost('input_2');
@@ -225,4 +274,48 @@ function getPart($serial) {
     default:
       return 'NA';
   }
+}
+
+function getEmailLocation($state) {
+
+  $args = array(
+      'post_type' => 'location',
+      'post_status' => 'publish',
+      'posts_per_page' => '1',
+      'meta_query' => array(
+          array(
+              'key' => 'service_states',
+              'value' => '"'.$state.'"',
+              'compare' => 'LIKE'
+          )
+      )
+  );
+
+  $posts = new \WP_Query($args);
+
+  //$id = $posts->posts[0]->ID;
+  
+  $data = [];
+  while($posts->have_posts()): $posts->the_post();
+  
+      $id = get_the_ID();
+
+      $data[] = [
+          'title' => get_the_title(),
+          'loc' => get_field('map', $id),
+          'phone' => get_field('phone', $id),
+          'email' => get_field('email', $id),
+      ];
+
+  endwhile;
+  wp_reset_query();
+
+  $location = '<span style="font-weight: 400;">' . addslashes($data[0]['title']) . '</span><br>'
+            . '<span style="font-weight: 400;">' . $data[0]['loc']['name'] . '</span><br>'
+            . '<span style="font-weight: 400;">' . $data[0]['loc']['city'] . ' ' . $data[0]['loc']['state_short'] . ', ' .  $data[0]['loc']['post_code'] . '</span><br>'
+            . '<br>'
+            . (($data[0]['phone']) ? '<span style="font-weight: 400;">Email: </span><a href="tel:' . $data[0]['phone'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['phone'] . '</span></a><br><br>' : '')
+            . (($data[0]['email']) ? '<span style="font-weight: 400;">Email: </span><a href="mailto:' . $data[0]['email'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['email'] . '</span></a><br><br>' : '');
+
+  return $location;
 }

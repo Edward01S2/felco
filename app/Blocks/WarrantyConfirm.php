@@ -194,10 +194,20 @@ class WarrantyConfirm extends Block
     }
 
     public function getLoc() {
+        
+        $state = $_GET['state'];
+
         $args = array(
             'post_type' => 'location',
             'post_status' => 'publish',
             'posts_per_page' => '1',
+            'meta_query' => array(
+                array(
+                    'key' => 'service_states',
+                    'value' => '"'.$state.'"',
+                    'compare' => 'LIKE'
+                )
+            )
         );
 
         $posts = new \WP_Query($args);

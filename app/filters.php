@@ -17,5 +17,7 @@ add_filter('excerpt_more', function () {
 
 add_filter('acf/fields/google_map/api', function($api) {
     $api['key'] = 'AIzaSyAyGbaOm6xcPYYf6B6LZiljhkPcen9akwU';
+    //DEV KEY
+    //$api['key'] = 'AIzaSyAhv4kCi2_Cl7Xqgcxs3tIWd96vOHDvFGI';
     return $api;
 });

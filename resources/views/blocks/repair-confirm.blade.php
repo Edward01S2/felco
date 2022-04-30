@@ -30,8 +30,12 @@
                       <div class="font-bold">{!! $loc[0]['title'] !!}</div>
                       <div>{!! $loc[0]['loc']['name'] !!}</div>
                       <div>{!! $loc[0]['loc']['city'] !!}, {!! $loc[0]['loc']['state_short'] !!} {!! $loc[0]['loc']['post_code'] !!}</div>
-                      <div><a href="tel:{!! $loc[0]['phone'] !!}" class="text-blue-600">{!! $loc[0]['phone'] !!}</a></div>
-                      <div><a href="mailto:{!! $loc[0]['email'] !!}" class="text-blue-600">{!! $loc[0]['email'] !!}</a></div>
+                      @if($loc[0]['phone'])
+                        <div><a href="tel:{!! $loc[0]['phone'] !!}" class="text-blue-600">{!! $loc[0]['phone'] !!}</a></div>
+                      @endif
+                      @if($loc[0]['email'])
+                        <div><a href="mailto:{!! $loc[0]['email'] !!}" class="text-blue-600">{!! $loc[0]['email'] !!}</a></div>
+                      @endif
                     </div>
                   </div>
                 </div>

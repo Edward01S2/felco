@@ -57,6 +57,7 @@ class Request extends Field
             ->addText('warranty')
             ->addText('shipping_url')
             ->addTextarea('shipengine_response')
+            ->addTextarea('location')
             ->addGallery('files')
             ;
 
