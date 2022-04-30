@@ -78,6 +78,9 @@ class Locations extends Field
                     'VT' => 'Vermont',
                     'VA' => 'Virginia',
                     'WA' => 'Washington',
+                    'WV' => 'West Virginia',
+                    'WI' => 'Wisconsin',
+                    'WY' => 'Wyoming',
                 ]
             ])
             ->addGoogleMap('map');
