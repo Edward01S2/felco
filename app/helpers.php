@@ -36,7 +36,8 @@ add_action( 'gform_pre_submission_4', function ( $form ) {
     $state = rgpost('input_9');
     $location = getEmailLocation($state);
   
-    $_POST['input_23'] = $location;
+    $_POST['input_23'] = $location['location'];
+    $_POST['input_24'] = $location['email'];
 
     //If within last 3 years then generate label and not a battery
     if($sn_year >= $curr_year - 3 && $part !== 'Battery') {
@@ -162,7 +163,8 @@ add_action( 'gform_pre_submission_3', function ( $form ) {
   $state = rgpost('input_9');
   $location = getEmailLocation($state);
 
-  $_POST['input_17'] = $location;
+  $_POST['input_17'] = $location['location'];
+  $_POST['input_18'] = $location['email'];
 });
 
 add_action( 'gform_pre_submission_2', function ( $form ) {
@@ -176,7 +178,8 @@ add_action( 'gform_pre_submission_2', function ( $form ) {
   $state = rgpost('input_8');
   $location = getEmailLocation($state);
 
-  $_POST['input_17'] = $location;
+  $_POST['input_17'] = $location['location'];
+  $_POST['input_18'] = $location['email'];
 
   //Get service level
   $level = rgpost('input_2');
@@ -310,12 +313,18 @@ function getEmailLocation($state) {
   endwhile;
   wp_reset_query();
 
-  $location = '<span style="font-weight: 400;">' . addslashes($data[0]['title']) . '</span><br>'
+  $return = [];
+
+  $return['location'] = '<span style="font-weight: 400;">' . addslashes($data[0]['title']) . '</span><br>'
             . '<span style="font-weight: 400;">' . $data[0]['loc']['name'] . '</span><br>'
             . '<span style="font-weight: 400;">' . $data[0]['loc']['city'] . ' ' . $data[0]['loc']['state_short'] . ', ' .  $data[0]['loc']['post_code'] . '</span><br>'
             . '<br>'
             . (($data[0]['phone']) ? '<span style="font-weight: 400;">Email: </span><a href="tel:' . $data[0]['phone'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['phone'] . '</span></a><br><br>' : '')
             . (($data[0]['email']) ? '<span style="font-weight: 400;">Email: </span><a href="mailto:' . $data[0]['email'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['email'] . '</span></a><br><br>' : '');
 
-  return $location;
+  $return['email'] = $data[0]['email'];
+
+
+
+  return $return;
 }

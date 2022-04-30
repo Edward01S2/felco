@@ -92,14 +92,25 @@
   }
 }
 
+.repair-form {
+  #field_3_2, #field_4_2 {
+    .gfield_validation_message {
+      @apply block text-red-500 text-sm w-full;
+    }
+  }
+}
+
 .service-form {
   .gfield {
-    @apply sm:flex sm:items-center mb-6 sm:mb-12;
+    @apply sm:flex sm:items-center mb-6 sm:mb-12 sm:flex-wrap;
     label {
       @apply sm:mr-4 lg:mr-6;
     }
     .ginput_container {
       @apply flex-grow;
+    }
+    .gfield_validation_message {
+      @apply block text-red-500 text-sm ml-2 w-full text-center;
     }
   }
 }

@@ -58,6 +58,7 @@ class Request extends Field
             ->addText('shipping_url')
             ->addTextarea('shipengine_response')
             ->addTextarea('location')
+            ->addText('notify_email')
             ->addGallery('files')
             ;
 
