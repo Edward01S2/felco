@@ -333,12 +333,11 @@ function getEmailLocation($state) {
             . '<span style="font-weight: 400;">' . $data[0]['loc']['name'] . '</span><br>'
             . '<span style="font-weight: 400;">' . $data[0]['loc']['city'] . ' ' . $data[0]['loc']['state_short'] . ', ' .  $data[0]['loc']['post_code'] . '</span><br>'
             . '<br>'
-            . (($data[0]['phone']) ? '<span style="font-weight: 400;">Email: </span><a href="tel:' . $data[0]['phone'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['phone'] . '</span></a><br><br>' : '')
-            . (($data[0]['email']) ? '<span style="font-weight: 400;">Email: </span><a href="mailto:' . $data[0]['email'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['email'] . '</span></a><br><br>' : '');
+            . (($data[0]['phone']) ? '<span style="font-weight: 400;">Phone: </span><a href="tel:' . $data[0]['phone'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['phone'] . '</span></a><br>' : '')
+            . (($data[0]['email']) ? '<span style="font-weight: 400;">Email: </span><a href="mailto:' . $data[0]['email'] . '" style="color: #3498db; text-decoration: underline;"><span style="font-weight: 400;">' . $data[0]['email'] . '</span></a><br>' : '')
+            . '<br>';
 
   $return['email'] = $data[0]['email'];
-
-
 
   return $return;
 }
