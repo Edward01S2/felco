@@ -19,6 +19,7 @@ return [
             'supports' => ['title'],
             'show_in_rest' => false,
             'has_archive' => false,
+            'publicly_queryable'  => false,
             'taxonomies' => ['category'],
             'labels' => [
                 'singular' => 'Request',
